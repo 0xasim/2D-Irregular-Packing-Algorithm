@@ -23,7 +23,7 @@ import copy
 
 class BottomLeftFill(object):
     def __init__(self,width,original_polygons,**kw):
-        self.choose_nfp=False
+        self.choose_nfp=True
         self.width=width
         self.length=150000 # 代表长度
         self.contain_length=2000
@@ -269,8 +269,8 @@ class TOPOS(object):
 
     
 if __name__=='__main__':
-    # index from 0-15
-    index=6
+    # index from 0-15 , 6 default
+    index = 16
     polys=getData(index)
     nfp_ass=packing.NFPAssistant(polys,store_nfp=True,get_all_nfp=True,load_history=False)
     # nfp_ass=packing.NFPAssistant(polys,store_nfp=False,get_all_nfp=True,load_history=True)

@@ -693,6 +693,7 @@ class NFPAssistant(object):
         if not self.history:
             if not self.history_path:
                 path="2D-Irregular-Packing-Algorithm/record/nfp.csv"
+                path="record/nfp.csv"
             else:
                 path=self.history_path
             df = pd.read_csv(path,header=None)

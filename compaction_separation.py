@@ -27,7 +27,7 @@ class LPFunction(object):
     '''
     def __init__(self,polys,poly_status,width,length,_type):
         self._type=_type
-        self.all_nfp=pd.read_csv("/Users/sean/Documents/Projects/Data/fu_simplify.csv")
+        self.all_nfp=pd.read_csv("Data/fu_simplify.csv")
         self.poly_status=copy.deepcopy(poly_status)
         self.polys=copy.deepcopy(polys)
         self.WIDTH=width
