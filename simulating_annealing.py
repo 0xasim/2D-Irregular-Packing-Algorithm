@@ -4,7 +4,9 @@ from tools.show import PltFunc
 from tools.nfp import NFP
 from tools.data import getData
 from tools.packing import PackingUtil,NFPAssistant,PolyListProcessor,Poly
-from heuristic import TOPOS,BottomLeftFill
+# from heuristic import TOPOS,BottomLeftFill
+from TOPOS import TOPOS
+from bottom_left_fill import BottomLeftFill
 import json
 from shapely.geometry import Polygon,mapping
 from shapely import affinity
@@ -31,7 +33,7 @@ def packingLength(poly_list,history_index_list,history_length_list,width,**kw):
             else:
                 length=BottomLeftFill(width,polys).contain_length
         except:
-            print('出现Self-intersection')
+            print('Self-intersection')
             length=99999
         history_index_list.append(index_list)
         history_length_list.append(length)
@@ -42,9 +44,9 @@ class SA(object):
     Simulating Annealing + Bottom Left Fill
     Reference:....
     '''
-    def __init__(self,poly_list):
+    def __init__(self, poly_list, width=150):
         self.min_angle=360 # 允许旋转的最小角度
-        self.width=1500 # 排列的宽度
+        self.width=width# 排列的宽度
 
         self.temp_now=200  # 起始温度 2000
         self.temp_end=1e-5 # 结束温度 1e-20
@@ -59,7 +61,6 @@ class SA(object):
         
         self.NFPAssistant=NFPAssistant(PolyListProcessor.getPolysVertices(poly_list),get_all_nfp=True)
 
-        self.run()
     
     def newPolyList(self):
         choose_id = int(random.random() * len(self.new_poly_list))
@@ -85,7 +86,7 @@ class SA(object):
 
         # 开始循环寻找
         while self.temp_now>self.temp_end:
-            print("当前温度：",self.temp_now)
+            print("temperature now：",self.temp_now)
             old_lowest_length=global_lowest_length # 统计未更改次数
 
             cur_length=packingLength(self.cur_poly_list,self.history_index_list,self.history_length_list,self.width,NFPAssistant=self.NFPAssistant)
@@ -112,8 +113,8 @@ class SA(object):
                 else:
                     pass # 否则不进行修改
             
-            print("当前温度最低长度:",temp_lowest_length)
-            print("最低长度:",global_lowest_length)
+            print("temp_lowest_len:",temp_lowest_length)
+            print("global_lowest_len:",global_lowest_length)
 
             if old_lowest_length==global_lowest_length:
                 unchange_times+=1
@@ -128,13 +129,16 @@ class SA(object):
             temp_lowest_length_list.append(temp_lowest_length) # 每个温度下的最低高度
             
         # print('结束温度的局部最优的序列:',temp_best_list)
-        print('结束温度的局部最优高度:',temp_lowest_length)
+        print('temp_lowest_len:',temp_lowest_length)
         # print('最好序列:',global_best_list)
-        print('最好序列高度:',global_lowest_length)
+        print('global_lowest_len:',global_lowest_length)
 
-        PolyListProcessor.showPolyList(self.width,global_best_list)
+        print("returning best global list")
+        return global_best_list
 
-        self.showBestResult(temp_lowest_length_list,global_lowest_length_list)
+        # PolyListProcessor.showPolyList(self.width,global_best_list)
+
+        # self.showBestResult(temp_lowest_length_list,global_lowest_length_list)
     
     def showBestResult(self,list1,list2):
         plt.figure(1)

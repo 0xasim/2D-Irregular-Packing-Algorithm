@@ -70,7 +70,6 @@ class FNS():
             for poly in self.polys:
                 PltFunc.addPolygon(poly)
             PltFunc.addLine([[0,self.height],[self.width,self.height]],color="blue")
-        print(self.polys[0])
         PltFunc.showPlt()
     
     # 获得面积的徒刑
@@ -191,7 +190,8 @@ class FNS():
         print(break_points)
         break_points=self.deleteDuplicated(break_points)
 
-        # 开始计算具体参数
+        print(f'break_points {break_points}')
+        # 开始计算具体参数 start to calculate specific params
         t1=min(break_points[0],break_points[1])
         t2=max(break_points[0],break_points[1])
 

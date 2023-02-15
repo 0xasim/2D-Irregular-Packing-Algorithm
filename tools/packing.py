@@ -37,7 +37,7 @@ class BottomLeftFill(object):
         print("Total Num:", len(original_polygons))
         self.placeFirstPoly()
         for i in range(1,len(self.polygons)):
-            print("############################## Place the ",i+1,"th shape #################################")
+            print("############################## Placing ",i+1,"th poly shape #################################")
             # self.showAll()
             self.placePoly(i)
         
@@ -64,6 +64,7 @@ class BottomLeftFill(object):
                 nfp=NFP(main,adjoin).nfp
             else:
                 nfp=self.NFPAssistant.getDirectNFP(main,adjoin)
+            print(f'nfp {nfp}')
             nfp_poly=Polygon(nfp)
             try:
                 differ_region=differ_region.difference(nfp_poly)
@@ -691,7 +692,7 @@ class NFPAssistant(object):
     def loadHistory(self):
         if not self.history:
             if not self.history_path:
-                path="record/nfp.csv"
+                path="2D-Irregular-Packing-Algorithm/record/nfp.csv"
             else:
                 path=self.history_path
             df = pd.read_csv(path,header=None)

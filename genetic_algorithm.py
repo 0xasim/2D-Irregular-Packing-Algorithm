@@ -1,10 +1,13 @@
 import numpy as np, random, operator, pandas as pd, matplotlib.pyplot as plt
+import sys; sys.path.append('tools')
 from tools.geofunc import GeoFunc
 from tools.show import PltFunc
 from tools.nfp import NFP
 from tools.data import getData
 from tools.packing import PackingUtil,NFPAssistant,PolyListProcessor,Poly
-from heuristic import TOPOS,BottomLeftFill
+# from heuristic import TOPOS,BottomLeftFill
+from TOPOS import TOPOS
+from bottom_left_fill import BottomLeftFill
 import json
 from shapely.geometry import Polygon,mapping
 from shapely import affinity
@@ -300,7 +303,7 @@ if __name__=='__main__':
     starttime = datetime.datetime.now()
 
     polys = getData(6)
-    all_rotation = [0] # 禁止旋转
+    all_rotation = [0] # 禁止旋转 no rotation
     poly_list = PolyListProcessor.getPolyObjectList(polys, all_rotation)
 
     nfp_assistant=NFPAssistant(polys, store_nfp=False, get_all_nfp=True, load_history=True)
