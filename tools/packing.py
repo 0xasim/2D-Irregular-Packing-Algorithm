@@ -850,11 +850,13 @@ class PolyListProcessor(object):
 
     @staticmethod
     def deleteRedundancy(_arr):
+        '''
         new_arr = []
         for item in _arr:
             if not item in new_arr:
                 new_arr.append(item)
-        return new_arr
+        '''
+        return _arr
 
     @staticmethod
     def getPolysByIndex(index_list,poly_list):
