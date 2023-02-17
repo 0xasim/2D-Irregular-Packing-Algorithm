@@ -65,11 +65,10 @@ class BottomLeftFill(object):
                 nfp=NFP(main,adjoin).nfp
             else:
                 nfp=self.NFPAssistant.getDirectNFP(main,adjoin)
-            nfp_poly=Polygon(nfp)
-
             # temporary fix by me
             if len(nfp) <= 2:
                 nfp = []
+            nfp_poly=Polygon(nfp)
             try:
                 differ_region=differ_region.difference(nfp_poly)
             except:
